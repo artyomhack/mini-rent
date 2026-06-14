@@ -16,3 +16,5 @@ spring:
   jpa:
     generate-ddl: false
     show-sql: ${SHOW_SQL:true}
+    hibernate:
+      ddl-auto: validate

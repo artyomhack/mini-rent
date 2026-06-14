@@ -56,7 +56,7 @@ CREATE TABLE IF NOT EXISTS mini_rent.rental_items(
         FOREIGN KEY(owner_id) REFERENCES mini_rent.users(id)
 );
 
-CREATE INDEX idx_rental_items_owner_id ON mini_rent.rental_items(owner_id);
+CREATE INDEX IF NOT EXISTS idx_rental_items_owner_id ON mini_rent.rental_items(owner_id);
 
 COMMENT ON COLUMN mini_rent.rental_items.id IS 'Уникальный идентификатор объекта аренды';
 
@@ -90,9 +90,9 @@ CREATE TABLE IF NOT EXISTS mini_rent.rental_agreements (
         FOREIGN KEY(renter_id) REFERENCES mini_rent.users(id)
 );
 
-CREATE INDEX idx_rental_agreements_renter_id ON mini_rent.rental_agreements(renter_id);
+CREATE INDEX IF NOT EXISTS idx_rental_agreements_renter_id ON mini_rent.rental_agreements(renter_id);
 
-CREATE INDEX idx_rental_agreements_item_id ON mini_rent.rental_agreements(rental_item_id);
+CREATE INDEX IF NOT EXISTS idx_rental_agreements_item_id ON mini_rent.rental_agreements(rental_item_id);
 
 COMMENT ON COLUMN mini_rent.rental_agreements.id IS 'Уникальный идентификатор договора аренды';
 
