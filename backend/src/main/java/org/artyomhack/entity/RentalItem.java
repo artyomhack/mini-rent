@@ -24,6 +24,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 import java.math.BigDecimal;
 import java.time.OffsetDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -72,5 +73,5 @@ public class RentalItem {
     private User owner;
 
     @OneToMany(mappedBy = "rentalItem",  cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.LAZY)
-    private List<RentalAgreement> agreements;
+    private List<RentalAgreement> agreements = new ArrayList<>();
 }

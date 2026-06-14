@@ -14,10 +14,13 @@
 
     <properties>
         <java.version>21</java.version>
+        <maven.compiler.version>3.15.0</maven.compiler.version>
         <spring.boot.version>4.1.0</spring.boot.version>
+        <apache.collections4.version>4.5.0</apache.collections4.version>
         <postgres.db.version>42.7.11</postgres.db.version>
         <lombok.version>1.18.46</lombok.version>
         <testcontainers.version>2.0.5</testcontainers.version>
+        <mapstruct.version>1.6.3</mapstruct.version>
         <liquibase.version>5.0.3</liquibase.version>
     </properties>
 
@@ -52,6 +55,16 @@
                 <groupId>org.postgresql</groupId>
                 <artifactId>postgresql</artifactId>
                 <version>${postgres.db.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-collections4</artifactId>
+                <version>${apache.collections4.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.mapstruct</groupId>
+                <artifactId>mapstruct</artifactId>
+                <version>${mapstruct.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.projectlombok</groupId>
@@ -90,6 +103,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
+                <version>${maven.compiler.version}</version>
                 <executions>
                     <execution>
                         <id>default-compile</id>
@@ -98,14 +112,19 @@
                             <goal>compile</goal>
                         </goals>
                         <configuration>
+                            <source>${java.version}</source>
+                            <target>${java.version}</target>
                             <annotationProcessorPaths>
                                 <path>
                                     <groupId>org.projectlombok</groupId>
                                     <artifactId>lombok</artifactId>
                                 </path>
+                                <path>
+                                    <groupId>org.mapstruct</groupId>
+                                    <artifactId>mapstruct-processor</artifactId>
+                                    <version>${mapstruct.version}</version>
+                                </path>
                             </annotationProcessorPaths>
-                            <basedir/>
-                            <mojoStatusPath/>
                         </configuration>
                     </execution>
                 </executions>

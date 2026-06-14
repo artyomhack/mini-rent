@@ -15,12 +15,14 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.apache.commons.collections4.CollectionUtils;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.SQLRestriction;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.OffsetDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -71,8 +73,8 @@ public class User {
     private OffsetDateTime deletedAt;
 
     @OneToMany(mappedBy = "owner", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    private List<RentalItem> rentalItems;
+    private List<RentalItem> rentalItems = new ArrayList<>();
 
     @OneToMany(mappedBy = "renter", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    private List<RentalAgreement> agreements;
+    private List<RentalAgreement> agreements = new ArrayList<>();
 }
