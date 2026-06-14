@@ -1,0 +1,18 @@
+spring:
+  application:
+    name: mini-rent
+  datasource:
+    url: ${DATASOURCE_URL:jdbc:postgresql://localhost:5431/mini_rent}
+    username: ${DATASOURCE_USER:mini_rent}
+    password: ${DATASOURCE_PASSWORD:B5LLQFNjSKxt}
+    hikari:
+      maximum-pool-size: 5
+      minimum-idle: 1
+      idle-timeout: 150000
+      max-lifetime: 300000
+  liquibase:
+    enabled: ${LIQUIBASE_ENABLED:true}
+    change-log: db/master.xml
+  jpa:
+    generate-ddl: false
+    show-sql: ${SHOW_SQL:true}
