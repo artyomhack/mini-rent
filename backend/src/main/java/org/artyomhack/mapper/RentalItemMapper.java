@@ -1,18 +1,18 @@
 package org.artyomhack.mapper;
 
-import org.artyomhack.dto.rentalitem.CreateRentalItemRequest;
-import org.artyomhack.dto.rentalitem.RentalItemDetail;
+import org.artyomhack.dto.rental.item.CreateRentalItemRequest;
+import org.artyomhack.dto.rental.item.RentalItemDetails;
 import org.artyomhack.entity.RentalItem;
 import org.mapstruct.Mapper;
 
 /**
  * Маппер, который преобразовывает сущность {@link RentalItem} в модель {@link CreateRentalItemRequest}
- * и преобразует из сущности {@link RentalItem} в модель {@link RentalItemDetail}.
+ * и преобразует из сущности {@link RentalItem} в модель {@link RentalItemDetails}.
  */
 @Mapper(componentModel = "spring")
 public interface RentalItemMapper {
 
     RentalItem toEntity(CreateRentalItemRequest request);
 
-    RentalItemDetail toDto(RentalItem entity);
+    RentalItemDetails toDto(RentalItem entity);
 }

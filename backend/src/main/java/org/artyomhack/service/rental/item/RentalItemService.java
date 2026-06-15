@@ -1,7 +1,7 @@
-package org.artyomhack.service.rentalitem;
+package org.artyomhack.service.rental.item;
 
-import org.artyomhack.dto.rentalitem.CreateRentalItemRequest;
-import org.artyomhack.dto.rentalitem.RentalItemDetail;
+import org.artyomhack.dto.rental.item.CreateRentalItemRequest;
+import org.artyomhack.dto.rental.item.RentalItemDetails;
 
 /**
  * Сервис, который работает с объектами для аренды.
@@ -12,5 +12,5 @@ public interface RentalItemService {
      * Метод, который создаёт объект аренды.
      * @param request - запрос на создание объекта аренды.
      */
-    RentalItemDetail createRentalItem(CreateRentalItemRequest request);
+    RentalItemDetails createRentalItem(CreateRentalItemRequest request);
 }

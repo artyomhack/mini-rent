@@ -13,6 +13,8 @@ spring:
   liquibase:
     enabled: ${LIQUIBASE_ENABLED:true}
     change-log: db/master.xml
+    default-schema: ${LIQUIBASE_DEFAULT_SCHEMA:mini_rent}
+    liquibase-schema: ${LIQUIBASE_SCHEMA:public}
   jpa:
     generate-ddl: false
     show-sql: ${SHOW_SQL:true}

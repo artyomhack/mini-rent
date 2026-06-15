@@ -1,4 +1,4 @@
-package org.artyomhack.dto.rentalitem;
+package org.artyomhack.dto.rental.item;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;

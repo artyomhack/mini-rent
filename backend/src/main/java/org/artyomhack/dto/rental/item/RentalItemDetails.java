@@ -1,4 +1,4 @@
-package org.artyomhack.dto.rentalitem;
+package org.artyomhack.dto.rental.item;
 
 import lombok.Data;
 
@@ -8,7 +8,7 @@ import java.math.BigDecimal;
  * Модель, которая информирует о сведениях объекта аренды.
  */
 @Data
-public class RentalItemDetail {
+public class RentalItemDetails {
 
     /**
      * Идентификатор владельца объекта для аренды.

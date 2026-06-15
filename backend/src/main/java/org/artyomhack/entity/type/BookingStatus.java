@@ -8,7 +8,7 @@ import lombok.Getter;
  */
 @Getter
 @AllArgsConstructor
-public enum AgreementStatus {
+public enum BookingStatus {
     PENDING("PENDING"),
     APPROVED("APPROVED"),
     ACTIVE("ACTIVE"),

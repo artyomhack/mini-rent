@@ -17,7 +17,7 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.artyomhack.entity.type.AgreementStatus;
+import org.artyomhack.entity.type.BookingStatus;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.SQLRestriction;
@@ -30,19 +30,19 @@ import java.time.OffsetDateTime;
  * Представление таблицы rental_agreement.
  */
 @Entity
-@Table(name = "rental_agreements", schema = "mini_rent")
+@Table(name = "rental_bookings", schema = "mini_rent")
 @Setter
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
-@SQLDelete(sql = "UPDATE mini_rent.rental_agreements SET deleted_at = CURRENT_TIMESTAMP WHERE id = ?")
+@SQLDelete(sql = "UPDATE mini_rent.rental_bookings SET deleted_at = CURRENT_TIMESTAMP WHERE id = ?")
 @SQLRestriction("deleted_at IS NULL")
-public class RentalAgreement {
+public class RentalBooking {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "rental_agreements_seq")
-    @SequenceGenerator(name = "rental_agreements_seq", sequenceName = "rental_agreements_sequence", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "rental_bookings_seq")
+    @SequenceGenerator(name = "rental_bookings_seq", sequenceName = "rental_bookings_sequence", allocationSize = 1)
     @EqualsAndHashCode.Include
     private Long id;
 
@@ -52,9 +52,9 @@ public class RentalAgreement {
     @Column(name = "end_at", nullable = false)
     private OffsetDateTime endAt;
 
-    @Column(name = "agreement_status", nullable = false)
+    @Column(name = "booking_status", nullable = false)
     @Enumerated(value = EnumType.STRING)
-    private AgreementStatus status;
+    private BookingStatus status;
 
     @Column(name = "created_at", nullable = false)
     @CreationTimestamp

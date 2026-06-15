@@ -73,5 +73,5 @@ public class RentalItem {
     private User owner;
 
     @OneToMany(mappedBy = "rentalItem",  cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.LAZY)
-    private List<RentalAgreement> agreements = new ArrayList<>();
+    private List<RentalBooking> bookings = new ArrayList<>();
 }

@@ -2,9 +2,9 @@ package org.artyomhack.controller;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.artyomhack.dto.rentalitem.CreateRentalItemRequest;
-import org.artyomhack.dto.rentalitem.RentalItemDetail;
-import org.artyomhack.service.rentalitem.RentalItemService;
+import org.artyomhack.dto.rental.item.CreateRentalItemRequest;
+import org.artyomhack.dto.rental.item.RentalItemDetails;
+import org.artyomhack.service.rental.item.RentalItemService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -21,7 +21,7 @@ public class RentalItemController {
 
     @PostMapping("/create")
     @ResponseStatus(code = HttpStatus.CREATED)
-    public RentalItemDetail createRentalItem(@RequestBody @Valid CreateRentalItemRequest request) {
+    public RentalItemDetails createRentalItem(@RequestBody @Valid CreateRentalItemRequest request) {
         return rentalItemService.createRentalItem(request);
     }
 }
