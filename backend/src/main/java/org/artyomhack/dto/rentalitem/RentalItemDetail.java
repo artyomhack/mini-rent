@@ -2,11 +2,18 @@ package org.artyomhack.dto.rentalitem;
 
 import lombok.Data;
 
+import java.math.BigDecimal;
+
 /**
  * Модель, которая информирует о сведениях объекта аренды.
  */
 @Data
 public class RentalItemDetail {
+
+    /**
+     * Идентификатор владельца объекта для аренды.
+     */
+    private Long ownerId;
 
     /**
      * Название объекта для аренды.
@@ -22,5 +29,5 @@ public class RentalItemDetail {
     /**
      * Цена за час у объекта для аренды.
      */
-    private String pricePerHour;
+    private BigDecimal pricePerHour;
 }

@@ -17,7 +17,7 @@ public class CreateRentalItemRequest {
     /**
      * Идентификатор текущего пользователя.
      */
-    //TODO: Временное решение, брать пользователя из контекста безопасности.
+    //TODO: Временное решение. Потом будем брать пользователя из контекста безопасности.
     @NotNull(message = "Идентификатор текущего пользователя обязателен!")
     private Long ownerId;
 
@@ -25,6 +25,7 @@ public class CreateRentalItemRequest {
      * Название объекта для аренды.
      */
     @NotBlank(message = "Название объекта для аренды обязательно!")
+    @Size(max = 100, message = "Название у объекта для аренды не должно быть больше 100 символов!")
     private String title;
 
     /**
@@ -37,5 +38,5 @@ public class CreateRentalItemRequest {
      * Цена за час у объекта для аренды.
      */
     @PositiveOrZero(message = "Цена за час не должна быть отрицательной!")
-    private BigDecimal pricePerHour;
+    private BigDecimal pricePerHour = BigDecimal.ZERO;
 }

@@ -1,12 +1,11 @@
 package org.artyomhack.service.user.impl;
 
 import lombok.RequiredArgsConstructor;
+import org.artyomhack.common.exception.UserNotFoundException;
 import org.artyomhack.entity.User;
 import org.artyomhack.repository.DefaultUserRepository;
 import org.artyomhack.service.user.UserService;
 import org.springframework.stereotype.Service;
-
-import java.util.Optional;
 
 /**
  * Реализация сервиса {@link UserService}.
@@ -21,10 +20,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User getUserById(Long id) {
-        return Optional.of(id)
-                .map(userRepository::findById)
-                .filter(Optional::isPresent)
-                .map(Optional::get)
-                .orElseThrow(() -> new RuntimeException(String.format(MESSAGE_OWNER_HAS_NOT_EXISTS, id)));
+        return userRepository.findById(id)
+                .orElseThrow(() -> new UserNotFoundException(String.format(MESSAGE_OWNER_HAS_NOT_EXISTS, id)));
     }
 }
