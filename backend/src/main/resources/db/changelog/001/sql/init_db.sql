@@ -124,3 +124,9 @@ VALUES(1, 'Артём', 'Хакимуллин', 'Ринатович', '+79991234
 
 INSERT INTO mini_rent.users(id, first_name, last_name, middle_name, phone_number, email, created_at, updated_at, deleted_at)
 VALUES(2, 'Камилла', 'Хакимуллина', 'Ниязовна', '+79991234568', 'demo2@gmail.com', '2026-06-15 00:48:44.981', '2026-06-14 21:51:06.744', NULL);
+
+INSERT INTO mini_rent.rental_items(id, owner_id, title, description, price_per_hour, created_at, updated_at, deleted_at)
+VALUES (1, 1, 'Скоростной велосипед', 'Велосипед 2020 года выпуска', 250.00, '2026-06-15 00:48:44.981', '2026-06-14 21:51:06.744', NULL);
+
+INSERT INTO mini_rent.rental_items(id, owner_id, title, description, price_per_hour, created_at, updated_at, deleted_at)
+VALUES (2, 1, 'Стиральная машина', 'Стиральная машин 2015 года выпуска', 25.00, '2026-06-15 00:48:44.981', '2026-06-14 21:51:06.744', NULL);

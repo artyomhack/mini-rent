@@ -14,7 +14,7 @@ public class RentalBookingState {
     /**
      * Идентификатор пользователя, который сформировал бронь на объявление о сдаче объекта в аренду.
      */
-    private Long userRentId;
+    private Long renterId;
 
     /**
      * Статус по брони на объявление о сдаче объекта в аренду.

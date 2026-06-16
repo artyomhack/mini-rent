@@ -20,3 +20,9 @@ spring:
     show-sql: ${SHOW_SQL:true}
     hibernate:
       ddl-auto: validate
+
+application:
+  booking:
+    limit-hour:
+      max: 24
+      min: 1

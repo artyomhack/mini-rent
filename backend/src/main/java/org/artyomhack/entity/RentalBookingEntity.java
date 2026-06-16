@@ -23,6 +23,7 @@ import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.SQLRestriction;
 import org.hibernate.annotations.UpdateTimestamp;
 
+import java.time.LocalDateTime;
 import java.time.OffsetDateTime;
 
 /**
@@ -38,7 +39,7 @@ import java.time.OffsetDateTime;
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @SQLDelete(sql = "UPDATE mini_rent.rental_bookings SET deleted_at = CURRENT_TIMESTAMP WHERE id = ?")
 @SQLRestriction("deleted_at IS NULL")
-public class RentalBooking {
+public class RentalBookingEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "rental_bookings_seq")
@@ -47,10 +48,10 @@ public class RentalBooking {
     private Long id;
 
     @Column(name = "start_at", nullable = false)
-    private OffsetDateTime startAt;
+    private LocalDateTime startAt;
 
     @Column(name = "end_at", nullable = false)
-    private OffsetDateTime endAt;
+    private LocalDateTime endAt;
 
     @Column(name = "booking_status", nullable = false)
     @Enumerated(value = EnumType.STRING)
@@ -58,20 +59,20 @@ public class RentalBooking {
 
     @Column(name = "created_at", nullable = false)
     @CreationTimestamp
-    private OffsetDateTime createdAt;
+    private LocalDateTime createdAt;
 
     @Column(name = "updated_at")
     @UpdateTimestamp
-    private OffsetDateTime updatedAt;
+    private LocalDateTime updatedAt;
 
     @Column(name = "deleted_at")
-    private OffsetDateTime deletedAt;
+    private LocalDateTime deletedAt;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "rental_item_id", nullable = false)
-    private RentalItem rentalItem;
+    private RentalItemEntity rentalItem;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "renter_id", nullable = false)
-    private User renter;
+    private UserEntity renter;
 }
