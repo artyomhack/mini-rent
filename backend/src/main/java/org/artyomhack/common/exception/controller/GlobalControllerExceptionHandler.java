@@ -2,9 +2,12 @@ package org.artyomhack.common.exception.controller;
 
 import lombok.extern.slf4j.Slf4j;
 import org.artyomhack.common.exception.RentalBookingDateTimeException;
+import org.artyomhack.common.exception.RentalItemNotFoundException;
+import org.artyomhack.common.exception.UserNotFoundException;
 import org.artyomhack.common.exception.controller.dto.ErrorResponse;
 import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -26,19 +29,7 @@ public class GlobalControllerExceptionHandler {
 
     private static final String REASON_PERIOD_INCORRECT = "Некорректный период времени при создании брони.";
 
-    /**
-     * Обработка исключения {@link Exception}.
-     */
-    @ExceptionHandler
-    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-    public ErrorResponse handleException(Exception e) {
-        log.error(e.getMessage(), e);
-        ErrorResponse errorResponse = new ErrorResponse();
-        errorResponse.setCode(HttpStatus.INTERNAL_SERVER_ERROR.value());
-        errorResponse.setReason(REASON_UNKNOWN_ERROR);
-        errorResponse.setMessage(e.getLocalizedMessage());
-        return errorResponse;
-    }
+    private static final String REASON_DATA_NOT_FOUND = "Данные не найдены.";
 
     /**
      * Обработка исключения {@link MethodArgumentNotValidException}.
@@ -53,25 +44,59 @@ public class GlobalControllerExceptionHandler {
                 .map(DefaultMessageSourceResolvable::getDefaultMessage)
                 .forEach(errors::add);
 
-        ErrorResponse response = new ErrorResponse();
-        response.setCode(HttpStatus.BAD_REQUEST.value());
-        response.setReason(REASON_BAD_REQUEST);
-        response.setMessage(e.getLocalizedMessage());
+        ErrorResponse response = new ErrorResponse(e, HttpStatus.BAD_REQUEST, REASON_BAD_REQUEST);
         response.setErrors(errors);
         return response;
     }
 
+
     /**
-     * Обработка исключения {@link org.artyomhack.common.exception.RentalBookingDateTimeException}.
+     * Обработка исключения {@link HttpMessageNotReadableException}.
+     */
+    @ExceptionHandler
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ErrorResponse handleBadRequest(final HttpMessageNotReadableException e) {
+        log.error(e.getMessage(), e);
+        return new ErrorResponse(e, HttpStatus.BAD_REQUEST, REASON_BAD_REQUEST);
+    }
+
+    /**
+     * Обработка исключения {@link RentalBookingDateTimeException}.
+     */
+    @ExceptionHandler
+    @ResponseStatus(HttpStatus.CONFLICT)
+    public ErrorResponse handleRentalBookingDateTimeException(RentalBookingDateTimeException e) {
+        log.error(e.getMessage(), e);
+        return new ErrorResponse(e, HttpStatus.CONFLICT, REASON_PERIOD_INCORRECT);
+    }
+
+    /**
+     * Обработка исключения {@link RentalItemNotFoundException}
+     */
+    @ExceptionHandler
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public ErrorResponse handleRentalItemNotFoundException(RentalItemNotFoundException e) {
+        log.error(e.getMessage(), e);
+        return new ErrorResponse(e, HttpStatus.NOT_FOUND, REASON_DATA_NOT_FOUND);
+    }
+
+    /**
+     * Обработка исключения {@link UserNotFoundException}
+     */
+    @ExceptionHandler
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public ErrorResponse handleUserNotFoundException(UserNotFoundException e) {
+        log.error(e.getMessage(), e);
+        return new ErrorResponse(e, HttpStatus.NOT_FOUND, REASON_DATA_NOT_FOUND);
+    }
+
+    /**
+     * Обработка исключения {@link Exception}.
      */
     @ExceptionHandler
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-    public ErrorResponse handleRentalBookingDateTimeException(RentalBookingDateTimeException e) {
+    public ErrorResponse handleException(Exception e) {
         log.error(e.getMessage(), e);
-        ErrorResponse response = new ErrorResponse();
-        response.setCode(HttpStatus.INTERNAL_SERVER_ERROR.value());
-        response.setReason(REASON_PERIOD_INCORRECT);
-        response.setMessage(e.getLocalizedMessage());
-        return response;
+        return new ErrorResponse(e, HttpStatus.INTERNAL_SERVER_ERROR, REASON_UNKNOWN_ERROR);
     }
 }

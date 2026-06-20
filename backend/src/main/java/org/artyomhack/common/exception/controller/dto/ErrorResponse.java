@@ -2,6 +2,7 @@ package org.artyomhack.common.exception.controller.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
+import org.springframework.http.HttpStatus;
 
 import java.time.OffsetDateTime;
 import java.util.List;
@@ -37,7 +38,10 @@ public class ErrorResponse {
      */
     private List<String> errors;
 
-    public ErrorResponse() {
+    public ErrorResponse(Exception e, HttpStatus status, String reason) {
+        this.message = e.getLocalizedMessage();
+        this.code = status.value();
+        this.reason = reason;
         this.timestamp = OffsetDateTime.now();
     }
 }
