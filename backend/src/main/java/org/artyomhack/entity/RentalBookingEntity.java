@@ -19,12 +19,12 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.artyomhack.entity.type.BookingStatus;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.Filter;
+import org.hibernate.annotations.FilterDef;
 import org.hibernate.annotations.SQLDelete;
-import org.hibernate.annotations.SQLRestriction;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
-import java.time.OffsetDateTime;
 
 /**
  * Сущность `Соглашение аренды`.
@@ -38,7 +38,8 @@ import java.time.OffsetDateTime;
 @AllArgsConstructor
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @SQLDelete(sql = "UPDATE mini_rent.rental_bookings SET deleted_at = CURRENT_TIMESTAMP WHERE id = ?")
-@SQLRestriction("deleted_at IS NULL")
+@FilterDef(name = "deletedBookingFilter")
+@Filter(name = "deletedBookingFilter", condition = "deleted_at IS NULL")
 public class RentalBookingEntity {
 
     @Id

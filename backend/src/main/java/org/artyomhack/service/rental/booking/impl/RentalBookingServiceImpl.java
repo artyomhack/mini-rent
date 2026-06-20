@@ -2,7 +2,8 @@ package org.artyomhack.service.rental.booking.impl;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.artyomhack.business.rule.RentalBookingPeriodValidator;
+import org.artyomhack.business.rule.RentalBookingCreationValidator;
+import org.artyomhack.common.annotation.DisableDeleted;
 import org.artyomhack.dto.rental.booking.CreateRentalBookingRequest;
 import org.artyomhack.entity.RentalBookingEntity;
 import org.artyomhack.entity.RentalItemEntity;
@@ -24,9 +25,11 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 public class RentalBookingServiceImpl implements RentalBookingService {
 
+    private static final String DELETED_BOOKING_FILTER = "deletedBookingFilter";
+
     private final RentalItemService rentalItemService;
 
-    private final RentalBookingPeriodValidator bookingPeriodValidator;
+    private final RentalBookingCreationValidator bookingPeriodValidator;
 
     private final UserService userService;
 
@@ -36,9 +39,10 @@ public class RentalBookingServiceImpl implements RentalBookingService {
 
     @Override
     @Transactional
+    @DisableDeleted(filter = DELETED_BOOKING_FILTER)
     public void createBooking(CreateRentalBookingRequest booking) {
         log.info("Начинаем процесс создания бронирования: {}", booking);
-        bookingPeriodValidator.validateBookingPeriodBeforeCreate(booking);
+        bookingPeriodValidator.validateBookingCreation(booking);
 
         UserEntity renter = userService.getUserById(booking.getRentalItemId());
         RentalItemEntity rentalItem = rentalItemService.getRentalItemById(booking.getRentalItemId());

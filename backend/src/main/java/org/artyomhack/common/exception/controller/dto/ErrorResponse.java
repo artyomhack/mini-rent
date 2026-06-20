@@ -1,6 +1,7 @@
 package org.artyomhack.common.exception.controller.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import lombok.Data;
 
 import java.time.OffsetDateTime;
 import java.util.List;
@@ -8,6 +9,7 @@ import java.util.List;
 /**
  * Модель, которая представляет ошибку после обработки исключений.
  */
+@Data
 public class ErrorResponse {
     /**
      * Код ошибки.

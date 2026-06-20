@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Репозиторий по работе с таблицей rental_bookings.
@@ -23,8 +24,10 @@ public interface RentalBookingRepository extends JpaRepository<RentalBookingEnti
      * @return список броней, которые пересекаются.
      */
     @Query(nativeQuery = true,
-            value = "SELECT rb.* FROM mini_rent.rental_bookings rb WHERE" +
-                    "(rb.start_at <= :end_at) AND (rb.end_at >= :start_at)")
-    List<RentalBookingEntity> findOverlappingBookings(@Param("start_at") LocalDateTime startAt,
-                                                      @Param("end_at") LocalDateTime endAt);
+            value = "SELECT rb.* FROM mini_rent.rental_bookings rb" +
+                    " WHERE (rb.start_at <= :end_at) AND (rb.end_at >= :start_at)" +
+                    "AND rb.rental_item_id = :rental_item_id LIMIT 1")
+    Optional<RentalBookingEntity> findFirstOverlappingBooking(@Param("rental_item_id") Long rentalItemId,
+                                                              @Param("start_at") LocalDateTime startAt,
+                                                              @Param("end_at") LocalDateTime endAt);
 }
