@@ -10,7 +10,9 @@
 
     <modules>
         <module>dependency-bom</module>
-        <module>backend</module>
+        <module>common</module>
+        <module>rental-backend</module>
+        <module>rental-analytics-api</module>
     </modules>
 
     <name>mini-rent</name>
