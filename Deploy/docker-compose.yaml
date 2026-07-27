@@ -1,5 +1,5 @@
 services:
-  postgres:
+  postgres-rent:
     image: postgres:16-alpine
     container_name: mini-rent-db
     restart: unless-stopped
@@ -17,5 +17,24 @@ services:
       timeout: 5s
       retries: 5
 
+  postgres-analytics:
+    image: postgres:16-alpine
+    container_name: mini-rent-analytics-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ${ANALYTICS_DB}
+      POSTGRES_USER: ${ANALYTICS_USER}
+      POSTGRES_PASSWORD: ${ANALYTICS_PASSWORD}
+    ports:
+      - "5430:5432"
+    volumes:
+      - postgres_analytics_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U mini_rent_analytics -d mini_rent_analytics"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
 volumes:
   postgres_data:
+  postgres_analytics_data:

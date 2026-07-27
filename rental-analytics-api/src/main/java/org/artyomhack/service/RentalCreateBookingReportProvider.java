@@ -1,6 +1,7 @@
 package org.artyomhack.service;
 
-import java.time.LocalDateTime;
+import org.artyomhack.model.FileInfo;
+import org.artyomhack.model.RentalBookingReportFilter;
 
 /**
  * Сервис, который работает с отчётом по созданным броням объектов, сдавших в аренду.
@@ -8,7 +9,7 @@ import java.time.LocalDateTime;
 public interface RentalCreateBookingReportProvider {
 
      /**
-      * Формируем документ отчёта по созданным броням объектов, сдавших в аренду.
+      * Получить отчёт, исходя из фильтра по созданным броням объектов, сдавших в аренду.
       */
-     byte[] generateReport(LocalDateTime from, LocalDateTime to, Long bookingId);
+     FileInfo getReportByFilter(RentalBookingReportFilter reportFilter);
 }

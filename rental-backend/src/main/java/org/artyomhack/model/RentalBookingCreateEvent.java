@@ -1,5 +1,6 @@
 package org.artyomhack.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 import org.artyomhack.type.BookingStatus;
 
@@ -7,10 +8,10 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 /**
- * Модель, которая представляем отчёт о создании брони на объект для сдачи в аренду.
+ * Модель, которая представляет событие о созданной брони.
  */
 @Data
-public class RentalCreateBookingReport {
+public class RentalBookingCreateEvent {
 
     private Long bookingId;
 
@@ -22,11 +23,14 @@ public class RentalCreateBookingReport {
 
     private BookingStatus bookingStatus;
 
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
     private LocalDateTime createdAt;
 
     private BigDecimal pricePerHour;
 
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
     private LocalDateTime startAt;
 
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
     private LocalDateTime endAt;
 }

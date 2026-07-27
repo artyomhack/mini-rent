@@ -4,10 +4,12 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.artyomhack.business.rule.RentalBookingCreationValidator;
 import org.artyomhack.annotation.DisableDeleted;
+import org.artyomhack.client.AnalyticsFeignClient;
 import org.artyomhack.dto.rental.booking.CreateRentalBookingRequest;
 import org.artyomhack.entity.RentalBookingEntity;
 import org.artyomhack.entity.RentalItemEntity;
 import org.artyomhack.entity.UserEntity;
+import org.artyomhack.model.RentalBookingCreateEvent;
 import org.artyomhack.type.BookingStatus;
 import org.artyomhack.mapper.RentalBookingMapper;
 import org.artyomhack.repository.RentalBookingRepository;
@@ -16,6 +18,9 @@ import org.artyomhack.service.rental.item.RentalItemService;
 import org.artyomhack.service.user.UserService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.client.RestClient;
+
+import java.time.LocalDateTime;
 
 /**
  * Реализация сервиса {@link RentalBookingService}.
@@ -40,7 +45,7 @@ public class RentalBookingServiceImpl implements RentalBookingService {
     @Override
     @Transactional
     @DisableDeleted(filter = DELETED_BOOKING_FILTER)
-    public void createBooking(CreateRentalBookingRequest booking) {
+    public RentalBookingCreateEvent createBooking(CreateRentalBookingRequest booking) {
         log.info("Начинаем процесс создания бронирования: {}", booking);
         bookingPeriodValidator.validateBookingCreation(booking);
 
@@ -53,10 +58,10 @@ public class RentalBookingServiceImpl implements RentalBookingService {
 
         newBooking.setStatus(BookingStatus.PENDING);
 
-        bookingRepository.save(newBooking);
+        bookingRepository.saveAndFlush(newBooking);
         log.info("Успешно создали бронь для пользователя с идентификатором {} для сдачи в аренду объекта {}",
                 renter.getId(), rentalItem.getId());
 
-        //TODO: Добавляем отправку сообшения в kafka
+        return bookingMapper.toBookingCreateEvent(newBooking);
     }
 }

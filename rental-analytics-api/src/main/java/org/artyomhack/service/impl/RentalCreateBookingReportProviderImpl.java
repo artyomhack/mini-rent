@@ -1,10 +1,11 @@
 package org.artyomhack.service.impl;
 
 import lombok.RequiredArgsConstructor;
+import org.artyomhack.generator.PdfGenerator;
+import org.artyomhack.model.FileInfo;
+import org.artyomhack.model.RentalBookingReportFilter;
 import org.artyomhack.service.RentalCreateBookingReportProvider;
 import org.springframework.stereotype.Service;
-
-import java.time.LocalDateTime;
 
 /**
  * Реализация сервиса {@link RentalCreateBookingReportProvider}.
@@ -13,8 +14,10 @@ import java.time.LocalDateTime;
 @RequiredArgsConstructor
 public class RentalCreateBookingReportProviderImpl implements RentalCreateBookingReportProvider {
 
+    private final PdfGenerator pdfGenerator;
+
     @Override
-    public byte[] generateReport(LocalDateTime from, LocalDateTime to, Long bookingId) {
-        return new byte[0];
+    public FileInfo getReportByFilter(RentalBookingReportFilter reportFilter) {
+        return null;
     }
 }

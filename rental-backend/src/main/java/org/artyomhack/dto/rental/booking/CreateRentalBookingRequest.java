@@ -1,5 +1,6 @@
 package org.artyomhack.dto.rental.booking;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.validation.constraints.FutureOrPresent;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
@@ -28,6 +29,7 @@ public class CreateRentalBookingRequest {
      * Дата начала аренды.
      */
     @NotNull
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @FutureOrPresent
     private LocalDateTime start;
 
@@ -35,6 +37,7 @@ public class CreateRentalBookingRequest {
      * Дата окончания аренды.
      */
     @NotNull
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @FutureOrPresent
     private LocalDateTime end;
 }

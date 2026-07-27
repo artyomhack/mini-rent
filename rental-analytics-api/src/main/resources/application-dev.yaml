@@ -1,13 +1,13 @@
 server:
-  port: ${SERVER_PORT:8080}
+  port: ${SERVER_PORT:8081}
 
 spring:
   application:
     name: mini-rent
   datasource:
-    url: ${DATASOURCE_URL:jdbc:postgresql://localhost:5431/mini_rent}
-    username: ${DATASOURCE_USER:mini_rent}
-    password: ${DATASOURCE_PASSWORD:B5LLQFNjSKxt}
+    url: ${DATASOURCE_URL:jdbc:postgresql://localhost:5430/mini_rent_analytics}
+    username: ${DATASOURCE_USER:mini_rent_analytics}
+    password: ${DATASOURCE_PASSWORD:B6LLQFNjSKxt}
     hikari:
       maximum-pool-size: 5
       minimum-idle: 1
@@ -16,21 +16,13 @@ spring:
   liquibase:
     enabled: ${LIQUIBASE_ENABLED:true}
     change-log: db/master.xml
-    default-schema: ${LIQUIBASE_DEFAULT_SCHEMA:mini_rent}
+    default-schema: ${LIQUIBASE_DEFAULT_SCHEMA:mini_rent_analytics}
     liquibase-schema: ${LIQUIBASE_SCHEMA:public}
   jpa:
     generate-ddl: false
     show-sql: ${SHOW_SQL:true}
     hibernate:
       ddl-auto: validate
-
-application:
-  services:
-    analytics-url: http://localhost:8081
-  booking:
-    limit-hour:
-      max: 24
-      min: 1
 
 logging:
   level:

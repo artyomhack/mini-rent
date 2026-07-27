@@ -1,6 +1,7 @@
 package org.artyomhack.service.rental.booking;
 
 import org.artyomhack.dto.rental.booking.CreateRentalBookingRequest;
+import org.artyomhack.model.RentalBookingCreateEvent;
 
 /**
  * Сервис по работе с бронированием объявлений по сдаче объектов в аренду.
@@ -8,7 +9,7 @@ import org.artyomhack.dto.rental.booking.CreateRentalBookingRequest;
 public interface RentalBookingService {
 
     /**
-     * Метод, который создаёт бронирование на сдачу объекта в аренду.
+     * Метод, который создаёт событие на бронирование сдачи объекта в аренду.
      */
-    void createBooking(CreateRentalBookingRequest booking);
+    RentalBookingCreateEvent createBooking(CreateRentalBookingRequest booking);
 }
