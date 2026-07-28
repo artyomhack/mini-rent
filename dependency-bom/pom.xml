@@ -23,6 +23,7 @@
         <testcontainers.version>2.0.5</testcontainers.version>
         <mapstruct.version>1.6.3</mapstruct.version>
         <liquibase.version>5.0.3</liquibase.version>
+        <itext.pdf.html.version>6.3.3</itext.pdf.html.version>
     </properties>
 
     <dependencyManagement>
@@ -80,6 +81,11 @@
                 <groupId>org.mapstruct</groupId>
                 <artifactId>mapstruct</artifactId>
                 <version>${mapstruct.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.itextpdf</groupId>
+                <artifactId>html2pdf</artifactId>
+                <version>${itext.pdf.html.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.projectlombok</groupId>

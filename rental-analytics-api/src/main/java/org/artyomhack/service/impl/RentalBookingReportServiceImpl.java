@@ -5,7 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.artyomhack.entity.RentalBookingReportEntity;
 import org.artyomhack.mapper.RentalBookingReportMapper;
 import org.artyomhack.model.RentalCreateBookingReport;
-import org.artyomhack.repository.ReportRentalBookingRepository;
+import org.artyomhack.repository.RentalBookingReportRepository;
 import org.artyomhack.service.RentalBookingReportService;
 import org.springframework.stereotype.Service;
 
@@ -17,7 +17,7 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class RentalBookingReportServiceImpl implements RentalBookingReportService {
 
-    private final ReportRentalBookingRepository rentalBookingRepository;
+    private final RentalBookingReportRepository rentalBookingRepository;
 
     private final RentalBookingReportMapper rentalBookingReportMapper;
 

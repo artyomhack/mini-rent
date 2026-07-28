@@ -9,7 +9,7 @@ import java.util.List;
 /**
  * Репозиторий, для работы с таблицей rental_bookings_report
  */
-public interface ReportRentalBookingRepository extends JpaRepository<RentalBookingReportEntity, Long> {
+public interface RentalBookingReportRepository extends JpaRepository<RentalBookingReportEntity, Long> {
 
     List<RentalBookingReportEntity> findAllByRentalItemIdAndCreatedAtBetween(Long rentalItemId, LocalDateTime from, LocalDateTime to);
 }
